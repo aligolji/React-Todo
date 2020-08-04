@@ -2,6 +2,17 @@ import React from 'react';
 import TodoForm from './TodoForm';
 import TodoList from './TodoList';
 
+
+
+
+const todoData = [
+  {
+    task: '',
+    id: '',
+    completed: false
+  }
+]
+
 class App extends React.Component {
   // you will need a place to store your state in this component.
   // design `App` to be the parent component of your application.
@@ -9,22 +20,38 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      task: 'from App this.state.task',
-      completed: 'from App this.state.completed doesnt need to render',
+      todoData: todoData
     };
   }
 
-  changeHandler = e => {
+toggleItem = (id) => {
+  this.setState({
+    todoData: this.state.todoData.map(item => {
+      if (item.id === id) {
+        return {
+          ...item,
+          completed: !item.completed
+        };
+      } else {
+        return item;
+      }
+    })
+  });
+};
 
-  }
+  addTask = taskName => {
+    const newTask = {
+      task: taskName,
+      id: new Date(),
+      completed: false
+    };
+
+    this.setState({
+      todoData: [...this.state.todoData, newTask]
+    });
+  };
 
 
-  submitHandler = e => {
-    e.preventDefault();
-    this.submit()
-    console.log('SUBMITTED!')
-
-  }
 
 
   render() {
@@ -33,11 +60,11 @@ class App extends React.Component {
         <h2>Welcome to your Todo App!</h2>
         <p>{this.state.task}</p>
         <p>{this.state.completed}</p>
-        <TodoForm submitHandler={this.submitHandler} />
+        <TodoForm addTask={this.addTask} />
         <TodoList />
         {/*Todo array props get passed to TodoList*/}
       </div>
-    );
+    );  
   }
 }
 

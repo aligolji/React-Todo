@@ -1,17 +1,9 @@
 import React from 'react';
 
 
-const Todo = props => {
+const Todo = props => <h5>{props.task}</h5>
 
-//takes props and data from <TodoList />
 
-    return (
-        <div>
-            <p>from Todo</p>     {/*render new item to the screen*/}
-                    {/*needs functionality to turn into complete and back to incomplete*/}
-        </div>
-    )
-}
 
 
 
